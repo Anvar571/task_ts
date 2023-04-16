@@ -2,9 +2,9 @@ import { Document } from "mongoose";
 
 interface IProduct extends Document{
     title: string,
-    description: string,
+    description?: string,
     price: number,
-    images: [],
+    images?: [],
     count: number
 }
 

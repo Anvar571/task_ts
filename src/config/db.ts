@@ -1,9 +1,12 @@
 import {connect} from "mongoose";
 
-function db_connect(){
+async function db_connect(){
     try {
         const db_url: string = process.env.DB_URL || "";
-        connect(db_url);
+        connect(db_url).then(() => {
+            console.log("connect success"); 
+        });
+
     } catch (error: any) {
         throw new Error(error.message)
     }

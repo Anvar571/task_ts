@@ -2,8 +2,8 @@ import express, {Application} from "express";
 import db_connect from "./config/db";
 import cors from "cors";
 import morgan from "morgan";
-import Controller from "@/utils/interface/controller.interface";
-import ErrorHandling from "@/middleware/error.handling";
+import Controller from "./utils/interface/controller.interface";
+import ErrorHandling from "./middleware/error.handling";
 
 class App {
     public app: Application; 
@@ -22,8 +22,8 @@ class App {
         this.errors()
     }
 
-    private db_connect(){
-        db_connect();
+    private async db_connect(){
+        await db_connect();
     }
 
     private middleware(){

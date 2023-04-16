@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import HttpError from "@/utils/other/http.error";
+import HttpError from "../utils/validations/http.error";
 
 function ErrorHandling(
     error:HttpError,
