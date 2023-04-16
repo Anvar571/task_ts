@@ -1,7 +1,7 @@
 import { IProduct } from "../types/product.types";
 import ProductModule from "../model/product.model";
 
-class ProductService {
+class ProductService  {
     private post = ProductModule;
 
     public async create(title: string, description: string, price: number, count: number, images: []): Promise<IProduct> {
