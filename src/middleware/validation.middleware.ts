@@ -1,3 +1,4 @@
+import HttpError from "../utils/validations/http.error";
 import {Request, Response, NextFunction, RequestHandler} from "express";
 
 import Joi from "joi";
@@ -16,16 +17,11 @@ function ValidationMiddleware(schema: Joi.Schema): RequestHandler{
 
         try {
             const value = await schema.validateAsync(req.body, validOp);
-
             req.body = value;
+
             next();
         } catch (error: any) {
-            const errors: string[] = []; 
-            error.deaild.forEach((error: Joi.ValidationErrorItem)=>{
-                errors.push(error.message);
-            })
-
-            res.status(400).send({errors: errors})
+            next(new HttpError(400, error.message))
         }
     }
 }

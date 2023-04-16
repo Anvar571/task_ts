@@ -7,7 +7,7 @@ function ErrorHandling(
     req:Request,
     res: Response,
     next: NextFunction
-): void{
+): void {
     const status = error.status || 500;
     const message = error.message || "Some error";
 
