@@ -43,25 +43,44 @@ class ProductCtrl {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response | void>{
-        const {title, description, price, count, images} = req.body;
+    ): Promise<Response | void> {
+        try {
+            const result = await this.services.update(req.params.id, req.body);
 
+            res.status(201).send(result);
+        } catch (error: any) {
+            next(new HttpError(400, error.message));
+
+        }
     }
 
     public async delete(
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response | void>{
+    ): Promise<Response | void> {
+        try {
+            const result = await this.services.delete(req.params.id);
 
+            res.status(201).send(result)
+        } catch (error: any) {
+            next(new HttpError(400, error.message));
+        }
     }
 
     public async getById(
-        req: Request, 
-        res: Response
-        ): Promise<Response|void>{
-            
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> {
+        try {
+            const product = await this.services.getById(req.params.id);
+
+            res.status(201).send(product);
+        } catch (error: any) {
+            next(new HttpError(400, error.message));
         }
+    }
 }
 
 export default ProductCtrl;

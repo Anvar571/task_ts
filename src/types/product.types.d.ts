@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import mongoose, { Document, Types } from "mongoose";
 
 interface IProduct extends Document{
     title: string,
