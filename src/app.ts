@@ -2,16 +2,16 @@ import express, { Application } from "express";
 import db_connect from "./config/db";
 import cors from "cors";
 import morgan from "morgan";
-import Controller from "./utils/interface/controller.interface";
 import ErrorHandling from "./middleware/error.handling";
 import swaggerDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import { ProductRoute } from "./routes/product.route";
 
 class App {
     public app: Application;
     public port: number;
 
-    constructor(controllers: Controller[], port: number) {
+    constructor( port: number) {
         this.app = express();
         this.port = port;
 
@@ -19,11 +19,13 @@ class App {
 
         this.middleware();
 
-        this.controllers(controllers);
+        this.controllers();
 
         this.swaggerUI()
 
         this.errors()
+
+        return this;
     }
 
     private async db_connect() {
@@ -51,6 +53,12 @@ class App {
                     description: 'My API description',
                 },
             },
+            servers: [
+                {
+                    url: `http://localhost:${this.port}/api`,
+                    description: 'Development server'
+                }
+            ],
             // Path to the API docs
             apis: ['./**/*.ts'],
         };
@@ -59,10 +67,8 @@ class App {
         this.app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
     }
 
-    private controllers(controllers: Controller[]): void {
-        controllers.forEach((controller: Controller) => {
-            this.app.use("/api", controller.router);
-        })
+    private controllers(): void {
+        this.app.use("/api/product", ProductRoute)
     }
 
     public listen(): void {

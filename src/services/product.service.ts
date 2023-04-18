@@ -6,11 +6,13 @@ class ProductService  {
 
     public async create(title: string, description: string, price: number, count: number, images: []): Promise<IProduct> {
         try {
+            const check = await this.post.findOne({title});
+            if (check) throw new Error("Deblicat title product!");
             const post = await this.post.create({ title, description, price, count, images })
             
             return post
-        } catch (error) {
-            throw new Error("Unable to create post")
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }

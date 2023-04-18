@@ -11,3 +11,11 @@ DB_URL=your_db_url
 JWT_SECRET=your_jwt_secret
 
 ```
+
+Ishga tushirish
+```js
+pnpm init
+
+pnpm install
+
+```

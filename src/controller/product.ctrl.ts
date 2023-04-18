@@ -1,45 +1,17 @@
-import ValidationMiddleware from "../middleware/validation.middleware";
-import Controller from "../utils/interface/controller.interface";
 import { Router, Response, Request, NextFunction } from "express";
-import validation from "../utils/validations/post.valid";
 import HttpError from "../utils/validations/http.error";
 import ProductService from "../services/product.service";
 
-class ProductCtrl implements Controller {
-    public path = "/post";
+class ProductCtrl {
     public router: Router;
     private services: ProductService;
 
     constructor() {
         this.router = Router();
         this.services = new ProductService();
-        this.initialRoute();
     }
 
-    private initialRoute() {
-        /**
-         * @swagger
-         * /api/post:
-         *   post:
-         *     summary: Returns a new product
-         *     responses:
-         *       201:
-         *         description: Successful response
-         */
-        this.router.post(`${this.path}`, ValidationMiddleware(validation.create), this.create),
-        /**
-         * @swagger
-         * /api/post:
-         *   get:
-         *     summary: Returns a all products
-         *     responses:
-         *       200:
-         *         description: Successful response
-         */
-        this.router.get(`${this.path}`, this.getAllProduct)
-    }
-
-    private async getAllProduct(
+    public async getAllProduct(
         req: Request,
         res: Response,
         next: NextFunction
@@ -51,7 +23,7 @@ class ProductCtrl implements Controller {
         }
     }
 
-    private async create(
+    public async create(
         req: Request,
         res: Response,
         next: NextFunction
@@ -66,6 +38,30 @@ class ProductCtrl implements Controller {
             next(new HttpError(400, error.message));
         }
     }
+
+    public async update(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void>{
+        const {title, description, price, count, images} = req.body;
+
+    }
+
+    public async delete(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void>{
+
+    }
+
+    public async getById(
+        req: Request, 
+        res: Response
+        ): Promise<Response|void>{
+            
+        }
 }
 
 export default ProductCtrl;
