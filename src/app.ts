@@ -9,6 +9,7 @@ import { ProductRoute } from "./routes/product.route";
 import authRoute from "./routes/auth.route";
 import userRoute from "./routes/user.route";
 import orderRoute from "./routes/order.route";
+import cartRoute from "./routes/cart.route";
 
 class App {
     public app: Application;
@@ -75,6 +76,7 @@ class App {
         this.app.use("/api/user", userRoute)
         this.app.use("/api/product", ProductRoute)
         this.app.use("/api/order", orderRoute)
+        this.app.use("/api/cart", cartRoute)
     }
 
     public listen(): void {

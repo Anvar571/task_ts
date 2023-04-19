@@ -17,6 +17,11 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
+            // const limit = req.query.limit || "";
+            // const page= req.query.page || "";
+            // const sort= req.query.sort || "";
+            // const skip = (parseInt(page) - 1) * parseInt(limit);
+
             const allProduct = await this.services.getAllProduct();
 
             res.status(200).send(allProduct);

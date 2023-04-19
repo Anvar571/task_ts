@@ -2,15 +2,10 @@ import { IOrder } from "../types/order.interface";
 import mongoose, {Schema, model} from "mongoose";
 
 const orderSchema = new Schema<IOrder>({
-    products: [
-        {
-            product: {
-                type: mongoose.Types.ObjectId,
-                ref: "product"
-            },
-            count: Number
-        }
-    ],
+    product_id: {
+        type: mongoose.Types.ObjectId,
+        ref: "product"
+    },
     userby: {
         type: mongoose.Types.ObjectId,
         ref: "user"

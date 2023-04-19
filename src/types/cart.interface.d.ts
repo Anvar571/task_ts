@@ -1,9 +1,10 @@
 import { Document } from "mongoose";
 
 interface ICart extends Document{
-    products: [],
-    countTotal: number,
-    orderBy: object
+    user_id: object,
+    product_id: object,
+    quantity: number,
+    totalCount: number
 }
 
-export {ICart}
+export {ICart, IAddCart}
