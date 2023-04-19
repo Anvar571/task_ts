@@ -6,6 +6,9 @@ import ErrorHandling from "./middleware/error.handling";
 import swaggerDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { ProductRoute } from "./routes/product.route";
+import authRoute from "./routes/auth.route";
+import userRoute from "./routes/user.route";
+import orderRoute from "./routes/order.route";
 
 class App {
     public app: Application;
@@ -68,7 +71,10 @@ class App {
     }
 
     private controllers(): void {
+        this.app.use("/api/auth", authRoute)
+        this.app.use("/api/user", userRoute)
         this.app.use("/api/product", ProductRoute)
+        this.app.use("/api/order", orderRoute)
     }
 
     public listen(): void {

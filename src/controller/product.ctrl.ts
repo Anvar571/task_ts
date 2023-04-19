@@ -17,7 +17,9 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
-            res.send({ message: "salom " });
+            const allProduct = await this.services.getAllProduct();
+
+            res.status(200).send(allProduct);
         } catch (error: any) {
             next(new HttpError(400, error.message))
         }
@@ -46,8 +48,8 @@ class ProductCtrl {
     ): Promise<Response | void> {
         try {
             const result = await this.services.update(req.params.id, req.body);
-
-            res.status(201).send(result);
+            
+            res.status(201).send({message: "Update successfully", result});
         } catch (error: any) {
             next(new HttpError(400, error.message));
 
@@ -62,7 +64,7 @@ class ProductCtrl {
         try {
             const result = await this.services.delete(req.params.id);
 
-            res.status(201).send(result)
+            res.status(201).send({message: result})
         } catch (error: any) {
             next(new HttpError(400, error.message));
         }

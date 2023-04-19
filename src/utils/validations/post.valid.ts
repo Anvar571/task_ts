@@ -8,4 +8,11 @@ const create  = joi.object({
     images: joi.array()
 })
 
-export default {create}
+const update = joi.object({
+    title: joi.string().required(),
+    description: joi.string(),
+    price: joi.number().required(),
+    count: joi.number().required(),
+})
+
+export default {create, update}

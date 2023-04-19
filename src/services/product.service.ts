@@ -18,8 +18,10 @@ class ProductService {
 
     public async update(id: string, data: object): Promise<IProduct | any> {
         try {
+            
             const update = await this.post.findByIdAndUpdate(id, data, {new: true})
-
+            if (!update) throw new Error("This product is not defined");
+            
             return update
         } catch (error: any) {
             throw new Error(error.message)
@@ -28,7 +30,9 @@ class ProductService {
 
     public async delete(id: string): Promise<string> {
         try {
-            await this.post.findByIdAndDelete(id);
+            const result = await this.post.findByIdAndDelete(id);
+            if (!result) throw new Error("This product is not defained");
+            
             return "Delete successfully"
         } catch (error: any) {
             throw new Error(error.message)
@@ -38,8 +42,18 @@ class ProductService {
     public async getById(id: string): Promise<IProduct| any> {
         try {
             const product = await this.post.findById(id);
+            if (!product) throw new Error("This product is not defained");
 
             return product;
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
+
+    public async getAllProduct() {
+        try {
+            const allProduct = await this.post.find();
+            return allProduct;
         } catch (error: any) {
             throw new Error(error.message)
         }
