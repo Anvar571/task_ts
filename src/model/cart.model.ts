@@ -15,11 +15,10 @@ const cartSchema = new Schema<ICart>({
     quantity: {
         type: Number,
         required: true,
-        default: 0
     },
     totalCount: {
         type: Number,
-        default: 0
+        required: true
     }
 }, { timestamps: true })
 

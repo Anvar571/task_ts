@@ -11,6 +11,8 @@ const userCtrl = new UserCtrl();
  * /api/user/me:
  *      get:
  *          summary: Get Current user
+ *          tags:
+ *              - User
  *          
  */
 userRoute.get("/me", authMiddleware, userCtrl.getCurrentUser.bind(userCtrl));
@@ -20,6 +22,8 @@ userRoute.get("/me", authMiddleware, userCtrl.getCurrentUser.bind(userCtrl));
  * /api/user:
  *      get:
  *          summary: Get all users
+ *          tags:
+ *              - User
  *          
  */
 userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
@@ -29,6 +33,8 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
  * /api/user/{id}:
  *      get:
  *          summary: Get one user by id
+ *          tags:
+ *              - User
  *          parameters:
  *              -in: path
  *              name: id
@@ -37,6 +43,6 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
  *              200:
  *          
  */
-// userRoute.get("/:id", authMiddleware, userCtrl.)
+userRoute.get("/:id", authMiddleware, userCtrl.getByIdUser.bind(userCtrl))
 
 export default userRoute;

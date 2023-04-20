@@ -9,18 +9,15 @@ const productSchema = new Schema<IProduct>({
     },
     description: {
         type: String,
-        default: ""
     },
     images: [],
     price: {
         type: Number,
         required: true,
-        default: 0
     },
-    count: {
+    quantity: {
         type: Number,
         required: true,
-        default: 0
     }
 }, { timestamps: true })
 

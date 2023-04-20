@@ -1,7 +1,7 @@
 import ProductCtrl from "../controller/product.ctrl";
 import { Router, } from "express";
 import ValidationMiddleware from "../middleware/validation.middleware";
-import validation from "../utils/validations/post.valid";
+import validation from "../utils/validations/product.valid";
 import {authMiddleware} from "../middleware/auth.middleware";
 
 const ProductRoute: Router = Router();
@@ -13,7 +13,7 @@ const product = new ProductCtrl();
  *      get:
  *          summary: Get all product
  *          tags:
- *              - ExampleEndpoints
+ *              - Product
  *          description: Send a message to the server and get a response added to the original text.
  *          requestBody:
  *              required: true
@@ -48,7 +48,7 @@ ProductRoute.get("/", authMiddleware, product.getAllProduct.bind(product))
  *      post:
  *          summary: Create new product
  *          tags:
- *              - ExampleEndpoints
+ *              - Product
  *          description: Send a message to the server and get a response added to the original text.
  *          requestBody:
  *              required: true
@@ -76,13 +76,15 @@ ProductRoute.get("/", authMiddleware, product.getAllProduct.bind(product))
  *              500:
  *                  description: Internal server error
  */
-ProductRoute.post("/create", authMiddleware, ValidationMiddleware(validation.create), product.create.bind(product))
+ProductRoute.post("/add", authMiddleware, ValidationMiddleware(validation.create), product.create.bind(product))
 
 /**
  * @swagger
  * /api/product/{id}:
  *      get:
  *          summary: Product updte
+ *          tags:
+ *              - Product
  */
 ProductRoute.get("/:id", authMiddleware, product.getById.bind(product));
 
@@ -91,6 +93,8 @@ ProductRoute.get("/:id", authMiddleware, product.getById.bind(product));
  * /api/product/{id}:
  *      put:
  *          summary: Product updte
+ *          tags:
+ *              - Product
  */
 
 ProductRoute.put("/:id", authMiddleware, product.update.bind(product));
@@ -100,6 +104,8 @@ ProductRoute.put("/:id", authMiddleware, product.update.bind(product));
  * /api/product/{id}:
  *      delete:
  *          summary: Product updte
+ *          tags:
+ *              - Product
  */
 ProductRoute.delete("/:id", authMiddleware, product.delete.bind(product));
 

@@ -36,11 +36,11 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
-            const { title, description, price, count, images } = req.body;
+            const { title, description, price, quantity, images } = req.body;
 
-            const post = await this.services.create(title, description, price, count, images);
+            const product = await this.services.create(title, description, price, quantity, images);
 
-            res.status(201).send(post);
+            res.status(201).send(product);
         } catch (error: any) {
             next(new HttpError(400, error.message));
         }

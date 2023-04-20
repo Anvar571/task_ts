@@ -4,13 +4,13 @@ import ProductModule from "../model/product.model";
 class ProductService {
     private post = ProductModule;
 
-    public async create(title: string, description: string, price: number, count: number, images: []): Promise<IProduct> {
+    public async create(title: string, description: string, price: number, quantity: number, images: []): Promise<IProduct> {
         try {
             const check = await this.post.findOne({ title });
             if (check) throw new Error("Deblicat title product!");
-            const post = await this.post.create({ title, description, price, count, images })
+            const product = await this.post.create({ title, description, price, quantity, images })
 
-            return post
+            return product
         } catch (error: any) {
             throw new Error(error.message);
         }

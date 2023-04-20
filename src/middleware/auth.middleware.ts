@@ -17,6 +17,8 @@ async function authMiddleware(req: CustomRequest, res: Response, next: NextFunct
 
         const decode: any = jwt.verify(token, secret_key);
         const user = await User.findById(decode._id);
+        if (!user) throw new Error("Please now register");
+        
         req.user = user;
 
         next();

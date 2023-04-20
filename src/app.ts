@@ -10,12 +10,14 @@ import authRoute from "./routes/auth.route";
 import userRoute from "./routes/user.route";
 import orderRoute from "./routes/order.route";
 import cartRoute from "./routes/cart.route";
+import * as fs from "fs";
+import path from "path";
 
 class App {
     public app: Application;
     public port: number;
 
-    constructor( port: number) {
+    constructor(port: number) {
         this.app = express();
         this.port = port;
 
@@ -23,9 +25,12 @@ class App {
 
         this.middleware();
 
+        this.logging()
+
         this.controllers();
 
         this.swaggerUI()
+
 
         this.errors()
 
@@ -40,7 +45,15 @@ class App {
         this.app.use(cors())
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: false }))
-        this.app.use(morgan("dev"))
+    }
+    
+    private logging() {
+        this.app.use(morgan("dev"));
+        const accessLogStream = fs.createWriteStream(
+            path.join(__dirname, 'log/access.log'),
+            { flags: 'a' }
+        );
+        this.app.use(morgan("combined", { stream: accessLogStream }));    
     }
 
     private errors() {

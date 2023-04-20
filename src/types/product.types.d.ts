@@ -5,7 +5,7 @@ interface IProduct extends Document{
     description?: string,
     price: number,
     images?: [],
-    count: number
+    quantity: number
 }
 
 export {IProduct}

@@ -6,7 +6,7 @@ class Jwt {
 
     public async generateToken(payload: string): Promise<string> {
         try {
-            const token = jwt.sign({_id: payload} , this.secret_key, { expiresIn: 60*60 });
+            const token = jwt.sign({_id: payload} , this.secret_key, { expiresIn: 60*60*60 });
 
             return token
         } catch (error: any) {
@@ -30,7 +30,7 @@ class Jwt {
         const secret: string = process.env.REFRESH_TOKEN || "";
         const secret_key: Secret = secret;
         try {
-            const token = jwt.sign({ _id: payload }, secret_key, { expiresIn: 60*60 });
+            const token = jwt.sign({ _id: payload }, secret_key, { expiresIn: 60*60*60 });
 
             return token
         } catch (error: any) {
