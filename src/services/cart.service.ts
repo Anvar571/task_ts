@@ -48,8 +48,9 @@ class CartService {
 
     public async deleteOneProductCart(id: string){
         try {
-            await this.cart.findByIdAndDelete(id);
-
+            const res = await this.cart.findByIdAndDelete(id);
+            if (!res) throw new Error("This cart item is not defined");
+            
             return "Delete cart item success";
         } catch (error: any) {
             throw new Error(error.message)
