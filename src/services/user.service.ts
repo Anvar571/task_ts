@@ -27,7 +27,7 @@ class UserService {
     public async updateUserData(id: string, data: IUser) {
         try {
             const user = await this.user.findByIdAndUpdate(id, data, {new: true});
-
+            if (!user) throw new Error("This user in not defined");
             return user
         } catch (error: any) {
             throw new Error(error.message)

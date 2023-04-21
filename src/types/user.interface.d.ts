@@ -6,4 +6,10 @@ interface IUser {
     firstname: string
 }
 
-export {IUser}
+interface IUserUpdate{
+    username: string,
+    email: string,
+    firstname: string
+}
+
+export {IUser, IUserUpdate}

@@ -46,6 +46,20 @@ class UserCtrl {
             next(new HttpError(400, error.message, error.stack))
         }
     }
+
+    public async updateUser(
+        req: CustomRequest,
+        res: Response,
+        next: NextFunction
+    ){
+        try {
+            const result = await this.serveice.updateUserData(req.params.id, req.body);
+
+            res.status(201).send(result);
+        } catch (error: any) {
+            next(new HttpError(400, error.message, error.stack))   
+        }
+    }
 }
 
 export default UserCtrl

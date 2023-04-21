@@ -32,7 +32,7 @@ class CartCtrl {
             let total = 0;
 
             userCart.forEach((val) => {
-                total += val.totalCount
+                total += val.totalCount * val.quantity
             })
 
             res.status(200).send({ userCart, total });
@@ -41,8 +41,19 @@ class CartCtrl {
         }
     }
 
-    public async updateCartItems() {
+    public async updateCartItems(
+        req: CustomRequest,
+        res: Response,
+        next: NextFunction
+    ) {
         // cartdagi productni sonini o'zgartirish
+        try {
+            const result = await this.cart.updateCartQuantity(req.params.id, req.body.quantity);
+
+            res.status(201).send(result);
+        } catch (error: any) {
+            next(new HttpError(400, error.message, error.stack))
+        }
     }
 
     public async delteCartItem(
@@ -59,7 +70,6 @@ class CartCtrl {
             next(new HttpError(400, error.message, error.stack))
         }
     }
-
 }
 
 export default CartCtrl

@@ -1,6 +1,8 @@
 import { authMiddleware } from "../middleware/auth.middleware";
 import UserCtrl from "../controller/user.ctrl";
 import { Router } from "express";
+import ValidationMiddleware from "../middleware/validation.middleware";
+import {updateuser} from "../utils/validations/user.valid"
 
 const userRoute: Router = Router();
 
@@ -45,4 +47,20 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
  */
 userRoute.get("/:id", authMiddleware, userCtrl.getByIdUser.bind(userCtrl))
 
+/**
+ * @swagger
+ * /api/user/{id}:
+ *      put:
+ *          summary: Update user data
+ *          tags:
+ *              - User
+ *          parameters:
+ *              username
+ *              email
+ *              firstname
+ *          response:
+ *              200:
+ *          
+ */
+userRoute.put("/:id", authMiddleware, ValidationMiddleware(updateuser), userCtrl.updateUser.bind(userCtrl));
 export default userRoute;

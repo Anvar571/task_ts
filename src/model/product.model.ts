@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { IProduct } from "../types/product.types";
 
 const productSchema = new Schema<IProduct>({
@@ -18,6 +18,11 @@ const productSchema = new Schema<IProduct>({
     quantity: {
         type: Number,
         required: true,
+    },
+    type: {
+        type: mongoose.Types.ObjectId,
+        ref:"category",
+        required: true
     }
 }, { timestamps: true })
 

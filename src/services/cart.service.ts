@@ -50,19 +50,21 @@ class CartService {
         try {
             const res = await this.cart.findByIdAndDelete(id);
             if (!res) throw new Error("This cart item is not defined");
-            
+
             return "Delete cart item success";
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
 
-    public async updateCartCount(id: string, quantity: number){
+    public async updateCartQuantity(id: string, quantity: number){
         try {
             const cartItem: any = await this.cart.findById(id).select("quantity");
+            
+            if (!cartItem) throw new Error("This cart item is not defined");
 
             if (quantity > cartItem.quantity) {
-                throw new Error(`This product quantity must be ${cartItem.quantity}`);
+                throw new Error(`Mahsulotning umumiy soni ${cartItem.quantity}ta siz notog'ri tanladingiz`);
                 return;
             }
 

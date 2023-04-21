@@ -28,7 +28,7 @@ cartRoute.post("/add", authMiddleware, ValidationMiddleware(cartValid), cartCtrl
 /**
  * @swagger
  * /api/cart/delete/{id}:
- *      post:
+ *      delete:
  *          summary: Delete product to cart
  *          tags:
  *              - Cart
@@ -37,7 +37,7 @@ cartRoute.delete("/delete/:id", authMiddleware, cartCtrl.delteCartItem.bind(cart
 /**
  * @swagger
  * /api/cart/update/{id}:
- *      post:
+ *      update:
  *          summary: Update product to cart
  *          tags:
  *              - Cart

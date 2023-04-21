@@ -35,11 +35,11 @@ class AuthService {
             const {email, password} = data;
             
             const user = await this.user.findOne({email});
-            if (!user) throw new Error("User is not exists or password")
+            if (!user) throw new Error("email is not exists or password")
 
             const checkPass = await bcrypt.compare(password, user.password);
 
-            if (!checkPass) throw new Error("User is not exists or password")
+            if (!checkPass) throw new Error("email is not exists or password")
 
             return user
         } catch (error: any) {
