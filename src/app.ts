@@ -50,7 +50,7 @@ class App {
     
     private logging() {
         this.app.use(morgan("dev"));
-        const accessLogStream = fs.createWriteStream('./src/log/access.log',
+        const accessLogStream = fs.createWriteStream('./access.log',
             { flags: 'a' }
         );
     
