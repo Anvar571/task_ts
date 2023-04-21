@@ -6,7 +6,8 @@ interface IProduct extends Document{
     price: number,
     images?: [],
     quantity: number,
-    type: object
+    type: object,
+    isOrder: boolean
 }
 
 export {IProduct}

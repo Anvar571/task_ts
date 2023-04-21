@@ -13,6 +13,7 @@ import cartRoute from "./routes/cart.route";
 import categoryRoute from "./routes/category.route";
 import * as fs from "fs";
 import path from "path";
+import "./bot/command/index";
 
 class App {
     public app: Application;
@@ -32,7 +33,6 @@ class App {
 
         this.swaggerUI()
 
-
         this.errors()
 
         return this;
@@ -51,7 +51,7 @@ class App {
     private logging() {
         this.app.use(morgan("dev"));
         const accessLogStream = fs.createWriteStream(
-            path.join(__dirname, 'log/access.log'),
+            path.join('src/log/access.log'),
             { flags: 'a' }
         );
         this.app.use(morgan("combined", { stream: accessLogStream }));    

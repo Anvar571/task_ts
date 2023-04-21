@@ -23,6 +23,10 @@ const productSchema = new Schema<IProduct>({
         type: mongoose.Types.ObjectId,
         ref:"category",
         required: true
+    },
+    isOrder: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 
