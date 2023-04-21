@@ -11,7 +11,9 @@ async function authMiddleware(req: CustomRequest, res: Response, next: NextFunct
     try {
         const secret: string = process.env.JWT_SECRET || "";
         const secret_key: Secret = secret;
-        const token = req.headers.authorization;
+        const token = req.cookies['refreshtoken'];
+        
+        console.log(token);
         
         if (!token) throw new Error("Please login now!");
 
@@ -33,7 +35,7 @@ async function checkLogin(
     next: NextFunction
 ) {
     try {
-        const token = req.headers.authorization;
+        const token = req.cookies['refreshtoken'];
         if (token) res.status(200).send({message: "You is already login is not entered login or register"});
         next()
     } catch (error: any) {

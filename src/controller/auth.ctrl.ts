@@ -17,6 +17,11 @@ class AuthCtrl {
 
             const token = await this.jwt.generateToken(data._id)
 
+            res.cookie("refreshtoken", token, {
+                httpOnly: true,
+                maxAge: 30*24*60*60*1000
+            })
+
             res.status(201).send({message:"Register successfully",data, token})
         } catch (error: any) {
             next(new HttpError(400, error.message, error.stack))
@@ -32,11 +37,9 @@ class AuthCtrl {
             const data = await this.authService.login(req.body);
             
             const token = await this.jwt.generateToken(data._id)
-            const refreshtoken = await this.jwt.refreshToken(data._id)
 
-            res.cookie("refreshtoken", refreshtoken, {
+            res.cookie("refreshtoken", token, {
                 httpOnly: true,
-                path: "/api/refresh_token",
                 maxAge: 30*24*60*60*1000
             })
 
@@ -52,7 +55,8 @@ class AuthCtrl {
         next: NextFunction
     ){
         try {
-            res.clearCookie("refreshtoken", {path: "/api/refresh_token"})
+            res.clearCookie("refreshtoken")
+            res.status(200).send({message: "Logout success"});
         } catch (error: any) {
             next(new HttpError(400, error.message, error.stack))
         }

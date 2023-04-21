@@ -12,8 +12,8 @@ import orderRoute from "./routes/order.route";
 import cartRoute from "./routes/cart.route";
 import categoryRoute from "./routes/category.route";
 import * as fs from "fs";
-import path from "path";
-import "./bot/command/index";
+import cookieParser from "cookie-parser";
+// import "./bot/command/index";
 
 class App {
     public app: Application;
@@ -46,6 +46,7 @@ class App {
         this.app.use(cors())
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: false }))
+        this.app.use(cookieParser());
     }
     
     private logging() {

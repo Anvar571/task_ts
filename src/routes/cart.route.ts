@@ -9,11 +9,14 @@ const cartRoute: Router = Router();
 const cartCtrl = new CartCtrl();
 /**
  * @swagger
- * /api/cart:
+ * /api/cart/me:
  *      get:
  *          summary: Get current user cart
  *          tags:
  *              - Cart
+ *          responses:
+ *              '200':
+ *                  description: ok
  */
 cartRoute.get("/me", authMiddleware, cartCtrl.getCurrentUserCart.bind(cartCtrl));
 /**

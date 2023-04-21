@@ -2,7 +2,7 @@ import ProductCtrl from "../controller/product.ctrl";
 import { Router, } from "express";
 import ValidationMiddleware from "../middleware/validation.middleware";
 import validation from "../utils/validations/product.valid";
-import {authMiddleware} from "../middleware/auth.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const ProductRoute: Router = Router();
 
@@ -14,17 +14,7 @@ const product = new ProductCtrl();
  *          summary: Get all product
  *          tags:
  *              - Product
- *          description: Send a message to the server and get a response added to the original text.
- *          requestBody:
- *              required: true
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          properties:
- *                              responseText:
- *                                  type: string
- *                                  example: This is some example string! This is an endpoint
+ *          description: Databasega saqlangan produktlarninig barchasini olish
  *          responses:
  *              201:
  *                  description: Success
@@ -33,9 +23,15 @@ const product = new ProductCtrl();
  *                          schema:
  *                              type: object
  *                              properties:
- *                                  text:
+ *                                  title:
  *                                      type: string
- *                                      example: This is some example string!
+ *                                  description:
+ *                                       type: string
+ *                                  price:
+ *                                         type: number
+ *                                  quantity:
+ *                                          type: number
+ * 
  *              404:
  *                  description: Not found
  *              500:
