@@ -73,7 +73,7 @@ class App {
             },
             servers: [
                 {
-                    url: `http://localhost:${this.port}/api`,
+                    url: `http://localhost:${this.port}/`,
                     description: 'Development server'
                 }
             ],
@@ -82,7 +82,7 @@ class App {
         };
 
         const swaggerSpec = swaggerDoc(swaggerOptions);
-        this.app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+        this.app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
     }
 
     private controllers(): void {
