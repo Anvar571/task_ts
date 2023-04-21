@@ -50,10 +50,10 @@ class App {
     
     private logging() {
         this.app.use(morgan("dev"));
-        const accessLogStream = fs.createWriteStream(
-            path.join('src/log/access.log'),
+        const accessLogStream = fs.createWriteStream('./src/log/access.log',
             { flags: 'a' }
         );
+    
         this.app.use(morgan("combined", { stream: accessLogStream }));    
     }
 
