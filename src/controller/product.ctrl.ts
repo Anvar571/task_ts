@@ -17,10 +17,10 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
-            const {limit=5, page=1, sort="title", search =" "} = req.query;
+            const {limit=5, page=1, sort="title", search=""} = req.query;
 
             const allProduct = await this.services.getAllProduct(
-                Number(limit), Number(page)-1, String(sort), search+" "
+                Number(limit), Number(page)-1, String(sort), String(search)
             );
 
             res.status(200).send(allProduct);

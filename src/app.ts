@@ -13,6 +13,7 @@ import cartRoute from "./routes/cart.route";
 import categoryRoute from "./routes/category.route";
 import * as fs from "fs";
 import cookieParser from "cookie-parser";
+import paymentRoute from "./routes/payment.route";
 // import "./bot/command/index";
 
 class App {
@@ -93,6 +94,7 @@ class App {
         this.app.use("/api/order", orderRoute)
         this.app.use("/api/cart", cartRoute)
         this.app.use("/api/category", categoryRoute)
+        this.app.use("/api/payment", paymentRoute)
     }
 
     public listen(): void {

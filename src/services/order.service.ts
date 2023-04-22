@@ -36,7 +36,7 @@ class OrderService {
 
     public async getAllOrder(limit: number, page: number){
         try {
-            const allOrder = await this.orderM.find()
+            const allOrder = await this.orderM.find().populate("product_id user_id", "title description username email firstname")
             .limit(limit)
             .skip(page * limit);
 
@@ -48,7 +48,9 @@ class OrderService {
 
     public async getByIdOrder(id: string){
         try {
-            const order = await this.orderM.findById(id);
+            const order = await this.orderM.findById(id)
+            .populate("product_id user_id", "title description username email firstname");
+
             if (!order) throw new Error("This order is not defined");
 
             return order;
@@ -59,7 +61,9 @@ class OrderService {
 
     public async updateOrder(id: string, data: any){
         try {
-            const order = await this.orderM.findByIdAndUpdate(id, data);
+            const order = await this.orderM.findByIdAndUpdate(id, data, {new: true})
+            .populate("product_id user_id", "title description username email firstname");
+            
             if(!order) throw new Error("This order order is not defined");
 
             return order

@@ -4,7 +4,8 @@ interface IAUTH  extends Document {
     firstname: string,
     username: string,
     email: string,
-    password: string
+    password: string,
+    avatar: string
 }
 
 interface ILogin extends Document {

@@ -11,7 +11,7 @@ async function authMiddleware(req: CustomRequest, res: Response, next: NextFunct
     try {
         const secret: string = process.env.JWT_SECRET || "";
         const secret_key: Secret = secret;
-        const token =  req.cookies["refreshtoken"];
+        const token =  req.headers.authorization;
         
         if (!token) throw new Error("Please login now!");
 

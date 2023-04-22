@@ -17,7 +17,7 @@ class OrderCtrl {
 
             // bot.telegram.sendMessage()
 
-            res.status(201).send({message: "ordered successfull", ...result});
+            res.status(201).send({message: "ordered successfull", result});
         } catch (error: any) {
             next(new HttpError(400, error.message, error.stack));
         }

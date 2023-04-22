@@ -2,6 +2,8 @@ import HttpError from "../utils/validations/http.error";
 import UserService from "../services/user.service";
 import { Request, Response, NextFunction } from "express";
 import { CustomRequest } from "../middleware/auth.middleware";
+import * as multer from "multer";
+
 
 class UserCtrl {
     private serveice = new UserService();

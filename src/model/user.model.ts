@@ -22,6 +22,9 @@ const userSchema = new Schema<IAUTH>({
         type: String,
         required: true,
         minlength: [6, "password must be at 6 length character"]
+    },
+    avatar:{
+        type: String,
     }
 }, {timestamps: true})
 
