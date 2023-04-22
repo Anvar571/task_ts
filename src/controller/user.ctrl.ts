@@ -39,6 +39,8 @@ class UserCtrl {
         next: NextFunction
     ){
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const user = await this.serveice.getById(req.params.id);
 
             res.status(200).send(user);
@@ -53,6 +55,8 @@ class UserCtrl {
         next: NextFunction
     ){
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.serveice.updateUserData(req.params.id, req.body);
 
             res.status(201).send(result);

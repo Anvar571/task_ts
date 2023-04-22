@@ -59,18 +59,23 @@ class CartService {
 
     public async updateCartQuantity(id: string, quantity: number){
         try {
-            const cartItem: any = await this.cart.findById(id).select("quantity");
-            
+            const cartItem: any = await this.cart.findById(id);
+
             if (!cartItem) throw new Error("This cart item is not defined");
 
-            if (quantity > cartItem.quantity) {
-                throw new Error(`Mahsulotning umumiy soni ${cartItem.quantity}ta siz notog'ri tanladingiz`);
+            if (quantity > cartItem.product_id.quantity) {
+                throw new Error(`Mahsulotning umumiy soni ${cartItem.product_id.quantity}ta siz notog'ri tanladingiz`);
                 return;
             }
 
             const cartUpdate = await this.cart.findByIdAndUpdate(id, {
-                quantity
-            }, {new: true})
+                quantity,
+                product_id: {
+                    quantity: cartItem.product_id.quantity - quantity
+                }
+            }, {new: true});
+
+            // const resultData = await  cartItem
 
             return cartUpdate
         } catch (error: any) {

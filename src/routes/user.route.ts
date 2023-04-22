@@ -38,7 +38,7 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
  *          tags:
  *              - User
  *          parameters:
- *              -in: path
+ *            - in: path
  *              name: id
  *              required: true
  *          response:
@@ -55,12 +55,18 @@ userRoute.get("/:id", authMiddleware, userCtrl.getByIdUser.bind(userCtrl))
  *          tags:
  *              - User
  *          parameters:
- *              username
- *              email
- *              firstname
- *          response:
+ *              - in: path
+ *                name: id
+ *                required: true
+ *                description: Update user data
+ *          responses:
  *              200:
- *          
+ *                  description: Update user data success
+ *              400: 
+ *                  description: Some Error
+ *              500:
+ *                  description: Internal server error
  */
 userRoute.put("/:id", authMiddleware, ValidationMiddleware(updateuser), userCtrl.updateUser.bind(userCtrl));
+
 export default userRoute;

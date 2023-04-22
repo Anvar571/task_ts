@@ -29,7 +29,8 @@ class OrderCtrl {
         next: NextFunction
     ){
         try {
-            const result = await this.orderService.getAllOrder();
+            const {limit=10, page=1} = req.query;
+            const result = await this.orderService.getAllOrder(Number(limit), Number(page)-1);
 
             res.status(200).send(result);
         } catch (error: any) {
@@ -43,6 +44,7 @@ class OrderCtrl {
         next: NextFunction
     ){
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
             const result = await this.orderService.getByIdOrder(req.params.id);
 
             res.status(200).send(result);
@@ -57,12 +59,13 @@ class OrderCtrl {
         next: NextFunction
     ){
         try {
-            const result = await this.orderService.updateOrder(req.params.id);
+            if (!req.params.id) throw new Error("Id is not defined")
+
+            const result = await this.orderService.updateOrder(req.params.id, req.body);
 
             res.status(200).send(result);
         } catch (error: any) {
             next(new HttpError(400, error.message, error.stack));
-            
         }
     }
 
@@ -72,6 +75,8 @@ class OrderCtrl {
         next: NextFunction
     ){
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.orderService.deleteOrder(req.params.id);
 
             res.status(200).send({message: result});

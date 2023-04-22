@@ -20,8 +20,7 @@ const productSchema = new Schema<IProduct>({
         required: true,
     },
     type: {
-        type: mongoose.Types.ObjectId,
-        ref:"category",
+        type: String,
         required: true
     },
     isOrder: {

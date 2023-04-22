@@ -4,9 +4,13 @@ import CategoryModel from "../model/category.model";
 class CategoryService {
     private category = CategoryModel;
 
-    public async addCategory(data: ICategory){
+    public async addCategory(data: ICategory) {
         try {
-            const newCategory = await this.category.create(data);
+            const { type, description } = data;
+            const newCategory = new this.category({
+                type: type.toLowerCase(),
+                description
+            });
 
             return newCategory
         } catch (error: any) {
@@ -14,9 +18,21 @@ class CategoryService {
         }
     }
 
-    public async getAllCategory(){
+    public async getAllCategory() {
         try {
-            const allCategory = await this.category.find();
+            const allCategory = await this.category.aggregate([
+                {
+                    $match: {}
+                },
+                {
+                    $lookup: {
+                        from: "product",
+                        localField: "type",
+                        foreignField: "type",
+                        as: "product"
+                    }
+                }
+            ]);
 
             return allCategory
         } catch (error: any) {

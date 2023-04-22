@@ -17,12 +17,11 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
-            // const limit = req.query.limit || "";
-            // const page= req.query.page || "";
-            // const sort= req.query.sort || "";
-            // const skip = (parseInt(page) - 1) * parseInt(limit);
+            const {limit=5, page=1, sort="title", search =" "} = req.query;
 
-            const allProduct = await this.services.getAllProduct();
+            const allProduct = await this.services.getAllProduct(
+                Number(limit), Number(page)-1, String(sort), search+" "
+            );
 
             res.status(200).send(allProduct);
         } catch (error: any) {
@@ -52,6 +51,8 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.services.update(req.params.id, req.body);
             
             res.status(201).send({message: "Update successfully", result});
@@ -67,6 +68,8 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.services.delete(req.params.id);
 
             res.status(201).send({message: result})
@@ -81,6 +84,8 @@ class ProductCtrl {
         next: NextFunction
     ): Promise<Response | void> {
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const product = await this.services.getById(req.params.id);
 
             res.status(201).send(product);

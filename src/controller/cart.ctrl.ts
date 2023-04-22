@@ -27,6 +27,8 @@ class CartCtrl {
         next: NextFunction
     ) {
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const userCart = await this.cart.getCurrentUserCart(req.user.id);
 
             let total = 0;
@@ -48,6 +50,8 @@ class CartCtrl {
     ) {
         // cartdagi productni sonini o'zgartirish
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.cart.updateCartQuantity(req.params.id, req.body.quantity);
 
             res.status(201).send(result);
@@ -63,6 +67,8 @@ class CartCtrl {
     ) {
         // cartdan biror productni o'chirish
         try {
+            if (!req.params.id) throw new Error("Id is not defined")
+
             const result = await this.cart.deleteOneProductCart(req.params.id)
 
             res.status(200).send({ message: result })

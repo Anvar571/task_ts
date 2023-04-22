@@ -22,7 +22,11 @@ class OrderService {
                 userby,
             });
 
-            prod.isOrder = true
+            await create.save()
+
+            await this.product.findByIdAndUpdate(product_id, {
+                isOrder: true
+            }, {new: true})
 
             return create
         } catch (error: any) {
@@ -30,9 +34,11 @@ class OrderService {
         }
     }
 
-    public async getAllOrder(){
+    public async getAllOrder(limit: number, page: number){
         try {
-            const allOrder = await this.orderM.find();
+            const allOrder = await this.orderM.find()
+            .limit(limit)
+            .skip(page * limit);
 
             return allOrder;
         } catch (error: any) {
@@ -51,9 +57,9 @@ class OrderService {
         }
     }
 
-    public async updateOrder(id: string){
+    public async updateOrder(id: string, data: any){
         try {
-            const order = await this.orderM.findById(id);
+            const order = await this.orderM.findByIdAndUpdate(id, data);
             if(!order) throw new Error("This order order is not defined");
 
             return order

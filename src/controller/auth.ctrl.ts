@@ -55,8 +55,12 @@ class AuthCtrl {
         next: NextFunction
     ){
         try {
-            res.clearCookie("refreshtoken")
-            res.status(200).send({message: "Logout success"});
+            if (req.cookies["refreshtoken"]) {
+                res.clearCookie("refreshtoken")
+                res.status(200).send({message: "Logout success"});
+                return
+            }
+            res.status(300).send({message: "Siz tizimga kirmagansiz! Please login now"});
         } catch (error: any) {
             next(new HttpError(400, error.message, error.stack))
         }
