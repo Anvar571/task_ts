@@ -16,6 +16,7 @@ import cookieParser from "cookie-parser";
 import paymentRoute from "./routes/payment.route";
 // import "./bot/command/index";
 
+
 class App {
     public app: Application;
     public port: number;
