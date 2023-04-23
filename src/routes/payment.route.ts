@@ -8,7 +8,7 @@ const paymentRoute: Router = Router()
  *      post:
  *          summary: Create payment
  *          tags:
- *              - Paymeny
+ *              - Payment
  *          requestBody:
  *              required: true
  *              content:
@@ -16,9 +16,9 @@ const paymentRoute: Router = Router()
  *                      schema:
  *                          type: object
  *                          properties:
- *                              amount:
- *                                  type: number
- *                                  example: 312
+ *                              order_id:
+ *                                  type: string
+ *                                  example: 64442b112080218c9db3d4d2
  *          responses:
  *              201:
  *                  description: Create payment success

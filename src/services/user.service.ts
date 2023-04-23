@@ -33,6 +33,23 @@ class UserService {
             throw new Error(error.message)
         }
     }
+
+    public async uploadUmage(url: string, userid: string){
+        try {
+            console.log(userid);
+            
+            const user = await this.user.findByIdAndUpdate(userid, {
+                avatar: url
+            }, {new: true});
+            console.log(user);
+            
+            if (!user) throw new Error("User is not found!")
+
+            return user
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export default UserService

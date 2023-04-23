@@ -46,6 +46,33 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
 
 /**
  * @swagger
+ * /api/user/upload:
+ *      post:
+ *          summary: Upload user image avatar
+ *          tags:
+ *              - User
+ *          requestBody:
+ *              content:
+ *                  multipart/form-data:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              image:
+ *                                  type: string
+ *                                  format: binary
+ *          responses:
+ *              200:
+ *                  description: Upload user image avatar
+ *              400: 
+ *                  description: Some Error
+ *              500:
+ *                  description: Internal server error
+ */
+userRoute.post("/upload", authMiddleware, uploadImage.single("image"), userCtrl.uploadImage.bind(userCtrl));
+
+
+/**
+ * @swagger
  * /api/user/{id}:
  *      get:
  *          summary: Get one user by id
@@ -55,7 +82,7 @@ userRoute.get("/", authMiddleware, userCtrl.getAllUser.bind(userCtrl));
  *            - in: path
  *              name: id
  *              required: true
- *          response:
+ *          responses:
  *              200:
  *                  description: Get one user
  *              400:
@@ -76,6 +103,22 @@ userRoute.get("/:id", authMiddleware, userCtrl.getByIdUser.bind(userCtrl))
  *                name: id
  *                required: true
  *                description: Update user data
+ *          requestBody:
+ *            required: true
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    username:
+ *                       type: string
+ *                       example: lorem
+ *                    email:
+ *                       type: string
+ *                       example: admin312@gmail.com
+ *                    firstname:
+ *                       type: string
+ *                       example: lorem ipsum
  *          responses:
  *              200:
  *                  description: Update user data success
@@ -86,33 +129,5 @@ userRoute.get("/:id", authMiddleware, userCtrl.getByIdUser.bind(userCtrl))
  */
 userRoute.put("/:id", authMiddleware, ValidationMiddleware(updateuser), userCtrl.updateUser.bind(userCtrl));
 
-/**
- * @swagger
- * /api/user/upload:
- *      post:
- *          summary: Upload user image avatar
- *          tags:
- *              - User
- *      requestBody:
- *          required: true
- *          content:
- *            single/form-data:
- *              schema:
- *                type: object
- *                properties:
- *                  file:
- *                    type: string
- *                    format: binary
- *          responses:
- *              200:
- *                  description: Upload user image avatar
- *              400: 
- *                  description: Some Error
- *              500:
- *                  description: Internal server error
- */
-userRoute.post("/upload", authMiddleware, uploadImage.single("image"), (req: Request, res: Response) => {
-    res.status(200).send({message: "Upload image success!"})
-});
 
 export default userRoute;

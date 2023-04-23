@@ -12,7 +12,7 @@ class UserCtrl {
         req: Request,
         res: Response,
         next: NextFunction
-    ){
+    ) {
         try {
             const data = await this.serveice.getAllUser();
             res.status(200).send(data);
@@ -25,7 +25,7 @@ class UserCtrl {
         req: CustomRequest,
         res: Response,
         next: NextFunction
-    ){
+    ) {
         try {
             const currnetUser = req.user;
 
@@ -39,7 +39,7 @@ class UserCtrl {
         req: CustomRequest,
         res: Response,
         next: NextFunction
-    ){
+    ) {
         try {
             if (!req.params.id) throw new Error("Id is not defined")
 
@@ -55,7 +55,7 @@ class UserCtrl {
         req: CustomRequest,
         res: Response,
         next: NextFunction
-    ){
+    ) {
         try {
             if (!req.params.id) throw new Error("Id is not defined")
 
@@ -63,7 +63,25 @@ class UserCtrl {
 
             res.status(201).send(result);
         } catch (error: any) {
-            next(new HttpError(400, error.message, error.stack))   
+            next(new HttpError(400, error.message, error.stack))
+        }
+    }
+
+    public async uploadImage(
+        req: CustomRequest,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            if (req.file?.mimetype == "image/png" || req.file?.mimetype == "image/jpeg"){
+                const user = await this.serveice.uploadUmage(String(req.file?.path), req.user.id);
+
+                return res.status(200).send({ message: "Upload image success!", user });
+            }
+            
+            throw new Error("This upload file type exists! \nFile type only png or jpeg")
+        } catch (error: any) {
+            next(new HttpError(400, error.message, error.stack))
         }
     }
 }
