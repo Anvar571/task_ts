@@ -36,12 +36,10 @@ class UserService {
 
     public async uploadUmage(url: string, userid: string){
         try {
-            console.log(userid);
             
             const user = await this.user.findByIdAndUpdate(userid, {
                 avatar: url
             }, {new: true});
-            console.log(user);
             
             if (!user) throw new Error("User is not found!")
 
