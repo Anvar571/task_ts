@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/server.ts",
+    "start:dev": "ts-node-dev src/server.ts",
+    "start:prod":"tsc -w && node ./dist/server.js",
     "build": "tsc",
-    "test": "mocha './test/**/*.test.ts'",
-    "start": "node ./dist/server.js"
+    "test": "mocha './test/**/*.test.ts'"
   },
   "keywords": [],
   "author": "",

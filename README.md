@@ -1,28 +1,27 @@
-# Task_ts
+# REST API with Payment, Telegram bot
 
-Project 
+## Installation
 
-Birinchi yangi env file ochish 
+```bash
 
-```js
-PORT=your_port
-DB_URL=your_db_url
-
-JWT_SECRET=your_jwt_secret
-
-ACCESS_TOKEN=your_token
-
-REFRESH_TOKEN=your_token
+$ pnpm install
 
 ```
 
+## Running the app
 
-Ishga tushirish
-```js
-pnpm init
+Development
+```bash
 
-pnpm install
+$ pnpm run start:dev
 
-pnpm run dev
 ```
 
+Production
+```bash
+
+$ pnpm run start:prod
+
+```
+
+men githubga push qilayotgan edim lekin sen birinchi pull qilishing kerak deyabdi shuni qanday qilib o'tkazib yuborsam bo'ladi 
