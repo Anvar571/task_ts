@@ -20,19 +20,7 @@ class CategoryService {
 
     public async getAllCategory() {
         try {
-            const allCategory = await this.category.aggregate([
-                {
-                    $match: {}
-                },
-                {
-                    $lookup: {
-                        from: "product",
-                        localField: "type",
-                        foreignField: "type",
-                        as: "product"
-                    }
-                }
-            ]);
+            const allCategory = await this.category.find({});
 
             return allCategory
         } catch (error: any) {
