@@ -23,5 +23,3 @@ Production
 $ pnpm run start:prod
 
 ```
-
-men githubga push qilayotgan edim lekin sen birinchi pull qilishing kerak deyabdi shuni qanday qilib o'tkazib yuborsam bo'ladi 
