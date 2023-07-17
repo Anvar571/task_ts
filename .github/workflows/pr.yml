@@ -1,0 +1,47 @@
+name: Pull Request Validation
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate_pull_request:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Run Code Validation
+        run: |
+          # Add your code validation steps here
+          # For example, you can run tests, linters, or any other checks
+          # that ensure the quality and standards of the code.
+          
+      - name: Comment on Pull Request
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = 'Code changes must be submitted via Pull Request.';
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+            
+      - name: Prevent Direct Push to Main
+        if: github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.repo.full_name != github.repository
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = 'Direct push to the main branch is not allowed.';
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+            github.actions.setFailed('Direct push to the main branch is not allowed.');
