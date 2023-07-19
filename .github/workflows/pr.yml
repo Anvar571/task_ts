@@ -1,35 +1,24 @@
-name: Pull Request Workflow
 
-on:
-  pull_request:
-    branches:
-      - master
-    types: ['opened', 'edited', 'reopened', 'synchronize']
+name: actions_on_main_branch
+on: 
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:    
+      - 'main'
 
 jobs:
-  pull_request_validator:
+  job1:
+    name: check_adminA
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: jamesnswithers/pull-request-validator-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-  build:
     env:
-      node_version: '16.x'
-    runs-on: ubuntu-latest
+      NAME_ADMIN: anvar571
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ env.node_version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.node_version }}
-      - run: npm install -g pnpm
-      - run: pnpm ci
-      - run: pnpm run build
-      - run: pnpm test
-      - uses: ./
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          system-test: true
+      - name: st1
+        if: ${{ github.actor != env.NAME_ADMIN }}
+        run: exit 1
+      - name: st2
+        if: ${{ github.actor == env.NAME_ADMIN }}
+        run: echo "ok"
