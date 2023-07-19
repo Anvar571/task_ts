@@ -25,10 +25,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.node_version }}
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
-      - run: npm run gh-compile
+      - run: npm install -g pnpm
+      - run: pnpm ci
+      - run: pnpm run build
+      - run: pnpm test
       - uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

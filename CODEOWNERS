@@ -1,0 +1,11 @@
+# This is the list of reviewers to approve any thing in this repo
+
+* @anvar571
+
+# what if i, like to approve only json
+
+*.js @anvar571
+
+# what if target spac folder
+
+/docs/* @anvar571
