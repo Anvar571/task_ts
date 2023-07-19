@@ -23,3 +23,10 @@ Production
 $ pnpm run start:prod
 
 ```
+
+Test
+```bash
+
+$ pnpm run test
+
+```
