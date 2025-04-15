@@ -1,4 +1,4 @@
-# REST API with Payment, Telegram bot
+# REST API, Telegram bot
 
 ## Installation
 
